@@ -537,6 +537,81 @@
         justify-content: center;
       }
       #prdFs:active { filter: brightness(1.4); }
+      #prdInstall {
+        position: fixed;
+        inset: 0;
+        z-index: 1100;
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        padding: 16px;
+        box-sizing: border-box;
+        background: rgba(6, 6, 18, 0.72);
+        font-family: -apple-system, "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", sans-serif;
+        touch-action: manipulation;
+      }
+      #prdInstall[hidden], #prdInstall [hidden], #installButton[hidden] { display: none; }
+      #prdInstall .prd-card {
+        width: 100%;
+        max-width: 420px;
+        max-height: calc(100% - 8px);
+        overflow: auto;
+        box-sizing: border-box;
+        margin-bottom: env(safe-area-inset-bottom);
+        padding: 18px 18px 16px;
+        border: 1px solid rgba(244, 241, 234, 0.16);
+        border-radius: 18px;
+        background: #1c1726;
+        color: #f4f1ea;
+        text-align: left;
+      }
+      #prdInstall .prd-head { display: flex; align-items: center; gap: 12px; }
+      #prdInstall .prd-head img {
+        width: 52px;
+        height: 52px;
+        flex: none;
+        border-radius: 12px;
+        background: #2a2238;
+        image-rendering: pixelated;
+      }
+      #prdInstall h2 { margin: 0; font-size: 18px; line-height: 1.3; word-break: keep-all; }
+      #prdInstall .prd-sub { margin: 4px 0 0; font-size: 13px; line-height: 1.45; color: #b9b3c6; word-break: keep-all; }
+      #prdInstall .prd-why { margin: 12px 0 0; padding: 10px 12px; list-style: none; border-radius: 10px; background: rgba(244, 241, 234, 0.07); font-size: 14px; line-height: 1.5; color: #e3dfea; word-break: keep-all; }
+      #prdInstall .prd-why li { position: relative; padding-left: 20px; margin: 2px 0; }
+      #prdInstall .prd-why li::before { content: ""; position: absolute; left: 3px; top: 0.42em; width: 9px; height: 5px; border-left: 2px solid #7ddc8a; border-bottom: 2px solid #7ddc8a; transform: rotate(-45deg); }
+      #prdInstall ol { margin: 14px 0 16px; padding-left: 22px; font-size: 15px; line-height: 1.6; word-break: keep-all; }
+      #prdInstall ol li { margin: 2px 0; }
+      #prdInstall ol svg { vertical-align: -4px; margin: 0 2px; }
+      #prdInstall .prd-btns { display: flex; gap: 8px; }
+      #prdInstall .prd-btns button {
+        flex: 1;
+        min-height: 48px;
+        border: 0;
+        border-radius: 10px;
+        font: inherit;
+        font-size: 16px;
+        font-weight: 700;
+        color: #fff;
+        background: #e5533f;
+      }
+      #prdInstall .prd-btns button.prd-ghost {
+        flex: 0 0 auto;
+        padding: 0 18px;
+        color: #d8d3e2;
+        background: transparent;
+        border: 1px solid rgba(244, 241, 234, 0.25);
+      }
+      #prdInstall .prd-btns button:active { filter: brightness(0.88); }
+      @media (orientation: landscape) {
+        /* 가로: 화면이 낮아서 좋은 점과 하는 법을 옆으로 나란히 놓아요 */
+        #prdInstall { align-items: center; padding: 8px 16px; }
+        #prdInstall .prd-card { max-width: 660px; padding: 14px 16px 12px; }
+        #prdInstall .prd-head img { width: 40px; height: 40px; }
+        #prdInstall .prd-body { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; align-items: start; margin: 10px 0 12px; }
+        #prdInstall .prd-why { margin: 0; }
+        #prdInstall ol { margin: 4px 0 0; }
+        #prdInstall .prd-btns button { min-height: 44px; }
+      }
     </style>
 
     <!-- Custom PostStyle code is injected here -->
@@ -578,6 +653,29 @@
       <p class="prd-s" id="prdRotSub">화면이 안 돌아가면 폰의 화면 회전 잠금(자동 회전)을 풀어 주세요</p>
       <button id="prdRotFs" type="button" hidden>가로 전체 화면으로 하기</button>
     </div>
+    <div id="prdInstall" role="dialog" aria-labelledby="prdInstallTitle" hidden>
+      <div class="prd-card">
+        <div class="prd-head">
+          <img src="icon-192.png" alt="" />
+          <div>
+            <h2 id="prdInstallTitle">앱처럼 설치해서 할 수 있어요</h2>
+            <p class="prd-sub" id="prdInstallSub" hidden></p>
+          </div>
+        </div>
+        <div class="prd-body">
+        <ul class="prd-why">
+          <li>주소창과 아래 버튼 줄이 없어져서 게임 화면이 더 커요</li>
+          <li>홈 화면 아이콘을 누르면 바로 열려요</li>
+          <li>앱 스토어 없이 바로 설치되고, 항상 최신 버전으로 열려요</li>
+        </ul>
+        <ol id="prdInstallSteps"></ol>
+        </div>
+        <div class="prd-btns">
+          <button id="prdInstallGo" type="button">앱으로 설치</button>
+          <button id="prdInstallLater" type="button" class="prd-ghost">나중에</button>
+        </div>
+      </div>
+    </div>
     <button id="prdFs" type="button" aria-label="전체 화면" hidden>
       <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8V3h5M14 3h5v5M19 14v5h-5M8 19H3v-5"/></svg>
     </button>
@@ -587,6 +685,9 @@
         <div id="pauseMenu">
           <button id="resumeButton" onclick="resume()">
             계속하기
+          </button>
+          <button id="installButton" type="button" hidden>
+            앱으로 설치
           </button>
           <button id="quitButton" onclick="quitIfSupported()">
             나가기
@@ -990,7 +1091,7 @@
 "4fbc86853bc6329134431c7fc944310f",
 "51508bb69a1cadcc9d5dd4968f81f861",
 "4ab416c805671350eacb86cab7084a21",
-"21fc4422ff440b05edd2bf17722a1bad" ];
+"e6a79ffd368a7264513b0d75c83f84f5" ];
       }
 
       function onFirstFrameRendered()
@@ -1683,6 +1784,13 @@
       }
     </script>
 
+    <script id="prd-sw-script">
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", function () {
+          navigator.serviceWorker.register("./service-worker.js").catch(function () {});
+        });
+      }
+    </script>
     <script id="prd-phone-script">
       // 폰에서만 켜져요. PC와 태블릿은 아무것도 건드리지 않아요
       //  - 게임이 폰 화면 배치를 지원하면 (PRD_MOBILE_BUILD): 게임에게 폰이라고 알려 주고, 게임이 화면을 꽉 채워요 (세로, 가로 모두)
@@ -1797,12 +1905,87 @@
             rot.hidden = true;
             // 폰 화면 배치: 게임이 화면을 꽉 채워서 빈칸이 없어요. 가로로 돌린 직후 몇 초만 전체 화면 버튼을 보여줘요
             var land = !port;
-            if (land && !wasLand) showFs();
+            if (land !== wasLand) showFs(); // 돌릴 때마다 다시 잠깐 보여줘요
             wasLand = land;
-            fsBtn.hidden = !(mobAck && canFs && land && !isFull() && !isApp() && Date.now() < fsUntil);
+            fsBtn.hidden = !(mobAck && canFs && !isFull() && !isApp() && Date.now() < fsUntil);
           }
           wasPortrait = port;
         }
+        // ----- 앱처럼 설치하기 (홈 화면에 추가)
+        // 안드로이드: 브라우저가 설치 창을 내주면 버튼 한 번으로 설치해요. 아직 안 내줬으면 메뉴에서 하는 법을 알려 줘요
+        // 아이폰: 사이트가 설치 창을 띄울 수 없어서 하는 법을 알려 줘요
+        var sheet = document.getElementById("prdInstall");
+        var sheetTitle = document.getElementById("prdInstallTitle");
+        var sheetSub = document.getElementById("prdInstallSub");
+        var sheetSteps = document.getElementById("prdInstallSteps");
+        var sheetGo = document.getElementById("prdInstallGo");
+        var sheetLater = document.getElementById("prdInstallLater");
+        var pauseInstall = document.getElementById("installButton");
+        var deferred = null; // 브라우저가 내준 설치 창 (안드로이드)
+        var isIOS = /iPhone|iPod/i.test(ua);
+        var inApp = /KAKAOTALK|NAVER\(inapp|Instagram|FBAN|FBAV|FB_IAB|Line\/|DaumApps/i.test(ua); // 카카오톡 같은 앱 안의 브라우저
+        var SHARE = '<svg width="18" height="20" viewBox="0 0 18 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-label="공유"><path d="M9 13V2M5 5.5 9 2l4 3.5M4 9H2.5v9h13V9H14"/></svg>';
+        function laterRecently() {
+          try { return Date.now() - (+localStorage.getItem("prd-install-later") || 0) < 3 * 86400000; } catch (e) { return false; }
+        }
+        function rememberLater() {
+          try { localStorage.setItem("prd-install-later", String(Date.now())); } catch (e) {}
+        }
+        function renderSheet() {
+          var steps, go = "알겠어요", later = false;
+          sheetTitle.textContent = "앱처럼 설치해서 할 수 있어요";
+          sheetSub.hidden = !inApp;
+          if (inApp) {
+            sheetTitle.textContent = "브라우저로 열면 앱처럼 설치할 수 있어요";
+            sheetSub.textContent = "지금은 다른 앱 안에서 열려 있어서 설치가 안 돼요";
+            steps = isIOS
+              ? ["화면 아래나 위의 메뉴(···)에서 <b>Safari로 열기</b>를 눌러요", "Safari에서 공유 " + SHARE + " → <b>홈 화면에 추가</b>를 눌러요"]
+              : ["화면 위의 메뉴(⋮)에서 <b>다른 브라우저로 열기</b>를 눌러요", "Chrome에서 메뉴(⋮) → <b>홈 화면에 추가</b>를 눌러요"];
+          } else if (isIOS) {
+            steps = /CriOS/i.test(ua)
+              ? ["주소창 오른쪽의 공유 " + SHARE + " 를 눌러요", "<b>홈 화면에 추가</b>를 눌러요", "홈 화면의 <b>포랜디</b> 아이콘으로 열어요"]
+              : ["공유 " + SHARE + " 를 눌러요 (안 보이면 ··· 안에 있어요)", "<b>홈 화면에 추가</b>를 눌러요", "홈 화면의 <b>포랜디</b> 아이콘으로 열어요"];
+          } else if (deferred) {
+            steps = ["아래 버튼을 누르면 설치 창이 떠요", "설치하면 홈 화면의 <b>포랜디</b> 아이콘으로 열어요"];
+            go = "앱으로 설치";
+            later = true;
+          } else {
+            steps = ["브라우저 메뉴(⋮ 또는 ≡)를 눌러요", "<b>홈 화면에 추가</b>나 <b>앱 설치</b>를 눌러요", "홈 화면의 <b>포랜디</b> 아이콘으로 열어요"];
+          }
+          sheetSteps.innerHTML = steps.map(function (t) { return "<li>" + t + "</li>"; }).join("");
+          sheetGo.textContent = go;
+          sheetLater.hidden = !later;
+        }
+        function openSheet() { renderSheet(); sheet.hidden = false; }
+        function closeSheet() { sheet.hidden = true; rememberLater(); }
+        sheetLater.addEventListener("click", closeSheet);
+        sheetGo.addEventListener("click", function () {
+          if (deferred && !isIOS && !inApp) {
+            var d = deferred;
+            deferred = null;
+            d.prompt();
+            if (d.userChoice && d.userChoice.then) d.userChoice.then(function () {}, function () {});
+          }
+          closeSheet();
+        });
+        window.addEventListener("beforeinstallprompt", function (e) {
+          e.preventDefault(); // 브라우저가 멋대로 띄우지 않게 받아 두고, 우리 버튼으로 띄워요
+          deferred = e;
+          if (!sheet.hidden) renderSheet();
+          else if (!touched && !isApp() && !laterRecently()) openSheet(); // 아직 게임을 시작하기 전이면 바로 알려 줘요
+        });
+        window.addEventListener("appinstalled", function () {
+          deferred = null;
+          sheet.hidden = true;
+          pauseInstall.hidden = true;
+          rememberLater();
+        });
+        // 일시정지 메뉴(다른 앱에 갔다 오면 뜨는 창)에서도 언제든 열 수 있어요
+        pauseInstall.hidden = isApp();
+        pauseInstall.addEventListener("click", openSheet);
+        // 처음 들어왔을 때 (게임을 불러오는 동안) 한 번 알려 줘요. 나중에를 누르면 3일 동안은 안 떠요
+        if (!isApp() && !laterRecently()) openSheet();
+
         window.addEventListener("resize", update);
         window.addEventListener("orientationchange", function () { setTimeout(update, 250); });
         document.addEventListener("fullscreenchange", update);
