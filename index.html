@@ -12,17 +12,25 @@
     <!-- Builtin injector for disabling cache -->
     
 
-    <title>포켓몬 랜덤 디펜스</title>
-    <meta name="description" content="랜덤 소환으로 포켓몬을 모아 포켓몬 리그 챔피언이 되는 디펜스. 설치 없이 브라우저에서 바로 해요. 비공식 팬게임이에요." />
+    <title>포켓몬 랜덤 디펜스 (포랜디) - 설치 없이 하는 포켓몬 디펜스 웹게임</title>
+    <meta name="description" content="랜덤 소환으로 포켓몬을 모아 관장 8명과 포켓몬 리그 챔피언에 도전하는 무료 디펜스 웹게임. 설치 없이 PC와 폰 브라우저에서 바로 해요. 비공식 팬게임이에요." />
+    <link rel="canonical" href="https://donkochu.github.io/pokemon-random-defense/" />
     <meta name="theme-color" content="#060612" />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="포켓몬 랜덤 디펜스" />
-    <meta property="og:description" content="랜덤 소환으로 포켓몬을 모아 포켓몬 리그 챔피언이 되는 디펜스. 설치 없이 브라우저에서 바로 해요." />
+    <meta property="og:site_name" content="포켓몬 랜덤 디펜스" />
+    <meta property="og:locale" content="ko_KR" />
+    <meta property="og:title" content="포켓몬 랜덤 디펜스 (포랜디)" />
+    <meta property="og:description" content="랜덤 소환으로 포켓몬을 모아 관장 8명과 포켓몬 리그 챔피언에 도전하는 무료 디펜스 웹게임. 설치 없이 PC와 폰에서 바로 해요." />
     <meta property="og:url" content="https://donkochu.github.io/pokemon-random-defense/" />
     <meta property="og:image" content="https://donkochu.github.io/pokemon-random-defense/preview.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="포켓몬 랜덤 디펜스 게임 화면" />
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="포켓몬 랜덤 디펜스 (포랜디)" />
+    <meta name="twitter:description" content="랜덤 소환으로 포켓몬을 모아 관장 8명과 포켓몬 리그 챔피언에 도전하는 무료 디펜스 웹게임. 설치 없이 PC와 폰에서 바로 해요." />
+    <meta name="twitter:image" content="https://donkochu.github.io/pokemon-random-defense/preview.png" />
+    <script type="application/ld+json" id="prd-ld">{"@context": "https://schema.org", "@type": "VideoGame", "name": "포켓몬 랜덤 디펜스", "alternateName": ["포랜디", "Pokemon Random Defense"], "url": "https://donkochu.github.io/pokemon-random-defense/", "image": "https://donkochu.github.io/pokemon-random-defense/preview.png", "description": "랜덤 소환으로 포켓몬을 모아 관장 8명과 포켓몬 리그 챔피언에 도전하는 무료 디펜스 웹게임. 설치 없이 PC와 폰 브라우저에서 바로 해요. 비공식 팬게임이에요.", "inLanguage": "ko", "genre": ["디펜스", "랜덤 디펜스", "전략"], "gamePlatform": ["웹 브라우저", "PC", "Android", "iOS"], "applicationCategory": "Game", "operatingSystem": "Any", "playMode": "https://schema.org/SinglePlayer", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "KRW"}, "author": {"@type": "Person", "name": "방구석평론가"}}</script>
     <link rel="icon" type="image/png" href="favicon.png" />
     <link rel="apple-touch-icon" href="apple-touch-icon.png" />
     <link rel="manifest" href="manifest.webmanifest" />
@@ -237,6 +245,15 @@
         align-items: center;
         pointer-events: none;
       }
+      /* prd-intro: 로딩 화면의 게임 소개 글 */
+      .prd-intro { max-width: 520px; text-align: center; color: #e8ebf5; font-family: "Apple SD Gothic Neo", "Malgun Gothic", "Noto Sans KR", system-ui, sans-serif; pointer-events: auto; }
+      div.loading > .prd-intro { padding: 0 20px; margin: 0 0 6px; }
+      .prd-intro h1 { margin: 0 0 10px; font-size: 26px; line-height: 1.25; color: #ffd23f; }
+      .prd-intro p { margin: 0 0 8px; font-size: 15px; line-height: 1.6; word-break: keep-all; }
+      .prd-intro .prd-intro-s { font-size: 13px; color: #9aa3c0; }
+      .prd-intro a { color: #8fd0ff; }
+      @media (max-height: 420px) { .prd-intro h1 { font-size: 20px; margin-bottom: 6px; } .prd-intro p { font-size: 13px; margin-bottom: 4px; } }
+      /* prd-intro 끝 */
       div.loading > * {
         padding: 10px;
         margin: 10px;
@@ -705,6 +722,11 @@
         </div>
     </div>
     <div class="loading">
+      <div class="prd-intro" id="prdIntro">
+        <h1>포켓몬 랜덤 디펜스</h1>
+        <p>랜덤 소환으로 포켓몬을 모아 관장 8명과 포켓몬 리그 챔피언에 도전하는 디펜스 웹게임이에요. 설치 없이 PC와 폰에서 바로 해요.</p>
+        <p class="prd-intro-s">처음 열 때는 30MB쯤 받아서 조금 걸려요. <a href="guide/">게임 소개와 하는 법</a></p>
+      </div>
       <div class="spinner" id="spinner"></div>
       <div class="emscripten" id="status">Downloading...</div>
 
@@ -1793,6 +1815,26 @@
       }
     </script>
 
+    <script id="prd-intro-script">
+      // 로딩 화면: 게임이 뜨면 소개 글을 숨기고, 받는 중 글을 한글로 보여 줘요. 탭 제목도 지켜요
+      (function () {
+        var intro = document.getElementById("prdIntro"), cv = document.getElementById("canvas"), st = document.getElementById("status");
+        var KO = [[/^Downloading/, "게임을 받는 중이에요"], [/^Preparing/, "준비하는 중이에요"], [/^All downloads complete/, "게임을 불러오는 중이에요"], [/^Running/, "시작하는 중이에요"]];
+        function tr() {
+          if (!st) return;
+          var t = st.textContent || "";
+          for (var i = 0; i < KO.length; i++) if (KO[i][0].test(t)) { st.textContent = KO[i][1]; return; }
+        }
+        tr();
+        if (st && window.MutationObserver) new MutationObserver(tr).observe(st, { childList: true, characterData: true, subtree: true });
+        // 게임이 뜨면서 탭 제목을 짧게 바꾸는데, 검색에 쓰이는 원래 제목으로 되돌려요
+        var T = document.title, te = document.querySelector("title");
+        if (te && window.MutationObserver) new MutationObserver(function () { if (document.title !== T) document.title = T; }).observe(te, { childList: true, characterData: true, subtree: true });
+        var iv = setInterval(function () {
+          if (cv && cv.style.display === "block") { if (intro) intro.hidden = true; clearInterval(iv); }
+        }, 200);
+      })();
+    </script>
     <script id="prd-sw-script">
       if ("serviceWorker" in navigator) {
         window.addEventListener("load", function () {

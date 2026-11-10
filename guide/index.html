@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>포켓몬 랜덤 디펜스 하는 법 - 게임 소개와 공략 (포랜디)</title>
+    <meta name="description" content="포켓몬 랜덤 디펜스(포랜디) 게임 소개와 하는 법이에요. 소환과 미라클 교환, 등급과 볼, 관장 8명과 사천왕·챔피언 순서, 폰에 앱처럼 설치하는 법, 자주 묻는 질문을 모았어요." />
+    <link rel="canonical" href="https://donkochu.github.io/pokemon-random-defense/guide/" />
+    <meta name="theme-color" content="#060612" />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="포켓몬 랜덤 디펜스" />
+    <meta property="og:locale" content="ko_KR" />
+    <meta property="og:title" content="포켓몬 랜덤 디펜스 하는 법 (포랜디)" />
+    <meta property="og:description" content="소환과 미라클 교환, 등급과 볼, 관장 8명과 사천왕·챔피언 순서, 폰에 설치하는 법, 자주 묻는 질문." />
+    <meta property="og:url" content="https://donkochu.github.io/pokemon-random-defense/guide/" />
+    <meta property="og:image" content="https://donkochu.github.io/pokemon-random-defense/preview.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" type="image/png" href="../favicon.png" />
+    <link rel="apple-touch-icon" href="../apple-touch-icon.png" />
+    <script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebPage", "name": "포켓몬 랜덤 디펜스 하는 법", "url": "https://donkochu.github.io/pokemon-random-defense/guide/", "inLanguage": "ko", "description": "포켓몬 랜덤 디펜스(포랜디) 게임 소개와 하는 법, 관장 순서, 폰 설치 방법, 자주 묻는 질문.", "primaryImageOfPage": "https://donkochu.github.io/pokemon-random-defense/preview.png", "about": {"@type": "VideoGame", "name": "포켓몬 랜덤 디펜스", "alternateName": "포랜디", "url": "https://donkochu.github.io/pokemon-random-defense/", "gamePlatform": ["웹 브라우저", "PC", "Android", "iOS"], "author": {"@type": "Person", "name": "방구석평론가"}}}</script>
+    <style>
+      :root {
+        --bg: #060612;
+        --card: #10142a;
+        --line: #252b4a;
+        --text: #e8ebf5;
+        --muted: #9aa3c0;
+        --yellow: #ffd23f;
+        --red: #e23c3c;
+        --red-dark: #b82a2a;
+        --blue: #8fd0ff;
+      }
+      * { box-sizing: border-box; }
+      html { -webkit-text-size-adjust: 100%; }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+        font-family: "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", "Noto Sans KR", system-ui, sans-serif;
+        font-size: 17px;
+        line-height: 1.75;
+        word-break: keep-all;
+        overflow-wrap: anywhere;
+      }
+      a { color: var(--blue); }
+      .wrap { max-width: 760px; margin: 0 auto; padding: 0 20px 64px; }
+      header { padding: 36px 0 8px; text-align: center; }
+      .kicker { margin: 0 0 6px; color: var(--muted); font-size: 14px; letter-spacing: 0.04em; }
+      h1 { margin: 0 0 12px; font-size: clamp(28px, 6vw, 40px); line-height: 1.25; color: var(--yellow); }
+      .lead { margin: 0 auto 22px; max-width: 34em; color: var(--text); }
+      .play {
+        display: inline-block;
+        padding: 14px 34px;
+        border-radius: 12px;
+        background: var(--red);
+        border-bottom: 4px solid var(--red-dark);
+        color: #fff;
+        font-size: 19px;
+        font-weight: 700;
+        text-decoration: none;
+      }
+      .play:hover, .play:focus-visible { filter: brightness(1.08); }
+      .play:active { transform: translateY(2px); border-bottom-width: 2px; }
+      .sub { margin: 10px 0 0; color: var(--muted); font-size: 14px; }
+      .shot { display: block; width: 100%; height: auto; margin: 28px 0 0; border-radius: 14px; border: 1px solid var(--line); }
+      nav.toc { margin: 28px 0 0; padding: 14px 18px; background: var(--card); border: 1px solid var(--line); border-radius: 12px; font-size: 15px; }
+      nav.toc ul { margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 6px 18px; }
+      section { margin-top: 44px; }
+      h2 { margin: 0 0 12px; padding-bottom: 8px; border-bottom: 2px solid var(--line); font-size: 24px; line-height: 1.3; color: var(--yellow); }
+      h3 { margin: 22px 0 6px; font-size: 18px; color: #fff; }
+      p { margin: 0 0 12px; }
+      ul, ol { margin: 0 0 12px; padding-left: 1.3em; }
+      li { margin-bottom: 6px; }
+      .tablebox { overflow-x: auto; border: 1px solid var(--line); border-radius: 12px; }
+      table { width: 100%; border-collapse: collapse; font-size: 16px; min-width: 420px; }
+      th, td { padding: 9px 14px; text-align: left; border-bottom: 1px solid var(--line); }
+      thead th { background: var(--card); color: var(--muted); font-size: 14px; font-weight: 600; }
+      tbody tr:last-child td { border-bottom: 0; }
+      td.num { font-variant-numeric: tabular-nums; white-space: nowrap; }
+      .league td { background: rgba(226, 60, 60, 0.07); }
+      kbd { display: inline-block; padding: 1px 7px; border: 1px solid var(--line); border-bottom-width: 2px; border-radius: 6px; background: var(--card); font: inherit; font-size: 14px; }
+      dl { margin: 0; }
+      dt { margin-top: 16px; font-weight: 700; color: #fff; }
+      dd { margin: 4px 0 0; color: var(--text); }
+      .cta { margin-top: 48px; padding: 28px 20px; text-align: center; background: var(--card); border: 1px solid var(--line); border-radius: 14px; }
+      .cta p { margin-bottom: 16px; }
+      footer { margin-top: 40px; color: var(--muted); font-size: 14px; }
+      footer p { margin-bottom: 6px; }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <header>
+        <p class="kicker">설치 없이 브라우저에서 하는 포켓몬 디펜스 웹게임</p>
+        <h1>포켓몬 랜덤 디펜스 하는 법</h1>
+        <p class="lead">랜덤 소환으로 포켓몬을 모아 관장 8명과 포켓몬 리그 챔피언에 도전하는 디펜스 게임이에요. 줄여서 포랜디라고 불러요. PC와 폰 브라우저에서 무료로 바로 할 수 있어요.</p>
+        <a class="play" href="../">게임 시작하기</a>
+        <p class="sub">처음 열 때 30MB쯤 받아요. 폰은 와이파이에서 여는 게 좋아요.</p>
+        <img class="shot" src="play.webp" width="1366" height="768" alt="포켓몬 랜덤 디펜스 플레이 화면. 가운데 배틀칸의 포켓몬 6마리가 길을 따라 도는 야생 포켓몬을 공격하고, 오른쪽에 소환 버튼과 PC칸이 있어요." />
+      </header>
+
+      <nav class="toc" aria-label="목차">
+        <ul>
+          <li><a href="#about">어떤 게임인가요</a></li>
+          <li><a href="#how">하는 법</a></li>
+          <li><a href="#grade">등급과 볼</a></li>
+          <li><a href="#boss">관장과 포켓몬 리그</a></li>
+          <li><a href="#tips">팁</a></li>
+          <li><a href="#phone">폰에서 하기</a></li>
+          <li><a href="#faq">자주 묻는 질문</a></li>
+        </ul>
+      </nav>
+
+      <section id="about">
+        <h2>어떤 게임인가요</h2>
+        <p>포켓몬 랜덤 디펜스는 코인으로 포켓몬을 랜덤 소환해서, 길을 따라 도는 야생 포켓몬을 막는 디펜스 게임이에요. 무엇이 나올지 모르는 랜덤 소환과 합치기가 중심이고, 여기에 포켓몬의 타입 상성과 관장전을 더했어요.</p>
+        <p>1세대 포켓몬 151마리가 나와요. 웨이브는 모두 130개예요. 10웨이브마다 관장과 싸워서 배지 8개를 모으면 포켓몬 리그에 들어가고, 사천왕 4명과 챔피언까지 이기면 엔딩이에요.</p>
+        <p>설치도 가입도 필요 없어요. 주소만 열면 PC와 폰 어디서나 바로 시작해요.</p>
+      </section>
+
+      <section id="how">
+        <h2>하는 법</h2>
+        <ol>
+          <li><strong>첫 파트너를 골라요.</strong> 이상해씨, 파이리, 꼬부기 중 하나로 시작해요.</li>
+          <li><strong>코인으로 포켓몬을 소환해요.</strong> 무엇이 나올지는 랜덤이에요. 알이 빛나는 색이 등급이에요.</li>
+          <li><strong>배틀칸 6마리만 싸워요.</strong> 나머지는 PC칸에 넣어 두고, 웨이브마다 바뀌는 적 타입에 맞춰 바꿔 끼워요.</li>
+          <li><strong>같은 계열 2마리를 미라클 교환하면</strong> 한 등급 위 포켓몬이 와요.</li>
+          <li><strong>소환 강화로 소환 레벨을 올리면</strong> 높은 등급이 더 잘 나와요.</li>
+          <li><strong>플레이트로</strong> 타입별 공격력을 올려요. 팀의 타입이 모였을 때 사는 게 좋아요.</li>
+          <li><strong>10웨이브마다 관장과 싸워요.</strong> 이기면 정비 시간이에요. 포켓몬을 정리하고 시작을 누르면 다음으로 넘어가요.</li>
+          <li><strong>필드에 적이 40마리 쌓이면 패배예요.</strong> 관장은 제한 시간 안에 이겨야 해요.</li>
+        </ol>
+        <h3>PC 단축키</h3>
+        <p><kbd>Space</kbd> 소환, <kbd>1</kbd> <kbd>2</kbd> <kbd>3</kbd> 볼 던지기, <kbd>4</kbd> 도전 몬스터, <kbd>5</kbd> 진화, <kbd>6</kbd> 교환, <kbd>Enter</kbd> 정비 끝내기, <kbd>F1</kbd>~<kbd>F3</kbd> 배속, <kbd>Esc</kbd> 멈춤이에요. 오른쪽 위 톱니바퀴에서 소리와 화면을 설정해요.</p>
+      </section>
+
+      <section id="grade">
+        <h2>등급과 볼</h2>
+        <p>포켓몬 등급은 일반, 희귀, 영웅, 전설 네 가지예요. 능력치는 원작 종족값을 따라가요. 공격이 높은 포켓몬은 근거리, 특수공격이 높은 포켓몬은 원거리로 싸워요. 모든 포켓몬은 특성이 있고, 영웅 이상과 최종 진화 포켓몬은 기술도 써요.</p>
+        <ul>
+          <li><strong>소환</strong>: 코인으로 뽑아요. 소환 레벨이 낮을 때는 대부분 일반이 나와요.</li>
+          <li><strong>몬스터볼, 슈퍼볼, 하이퍼볼</strong>: 볼을 던지면 더 높은 등급을 노릴 수 있어요. 하이퍼볼은 배지 8개를 모은 뒤부터 던질 수 있어요.</li>
+          <li><strong>진화</strong>: 코인을 내고 포켓몬을 진화시켜요.</li>
+          <li><strong>미라클 교환</strong>: 같은 계열 2마리를 내고 한 등급 위 포켓몬을 받아요.</li>
+          <li><strong>전설</strong>: 진화나 교환으로는 못 얻고 뽑기로만 나와요. 소환 레벨 5부터 조금씩 나와요.</li>
+          <li><strong>도전 몬스터</strong>: 그 웨이브보다 센 포켓몬을 불러서 잡으면 코인과 볼을 받아요.</li>
+        </ul>
+      </section>
+
+      <section id="boss">
+        <h2>관장과 포켓몬 리그</h2>
+        <p>10웨이브마다 한 명씩 나와요. 상대의 타입에 강한 포켓몬을 미리 배틀칸에 준비해 두면 쉬워요.</p>
+        <div class="tablebox">
+          <table>
+            <thead>
+              <tr><th scope="col">웨이브</th><th scope="col">상대</th><th scope="col">타입</th><th scope="col">에이스</th></tr>
+            </thead>
+            <tbody>
+              <tr><td class="num">10</td><td>관장 웅</td><td>바위</td><td>롱스톤</td></tr>
+              <tr><td class="num">20</td><td>관장 이슬</td><td>물</td><td>아쿠스타</td></tr>
+              <tr><td class="num">30</td><td>관장 마티스</td><td>전기</td><td>라이츄</td></tr>
+              <tr><td class="num">40</td><td>관장 민화</td><td>풀</td><td>라플레시아</td></tr>
+              <tr><td class="num">50</td><td>관장 독수</td><td>독</td><td>또도가스</td></tr>
+              <tr><td class="num">60</td><td>관장 초련</td><td>에스퍼</td><td>후딘</td></tr>
+              <tr><td class="num">70</td><td>관장 강연</td><td>불꽃</td><td>윈디</td></tr>
+              <tr><td class="num">80</td><td>관장 비주기</td><td>땅</td><td>코뿌리</td></tr>
+              <tr class="league"><td class="num">90</td><td>사천왕 칸나</td><td>얼음</td><td>라프라스</td></tr>
+              <tr class="league"><td class="num">100</td><td>사천왕 시바</td><td>격투</td><td>괴력몬</td></tr>
+              <tr class="league"><td class="num">110</td><td>사천왕 국화</td><td>고스트</td><td>팬텀</td></tr>
+              <tr class="league"><td class="num">120</td><td>사천왕 목호</td><td>드래곤</td><td>망나뇽</td></tr>
+              <tr class="league"><td class="num">130</td><td>챔피언 그린</td><td>판마다 달라요</td><td>리자몽, 거북왕, 이상해꽃 중 하나</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p style="margin-top:12px">챔피언을 이기면 끝까지 함께한 배틀칸 6마리가 나오는 클리어 화면을 볼 수 있어요.</p>
+      </section>
+
+      <section id="tips">
+        <h2>팁</h2>
+        <ul>
+          <li>화면 위쪽에 이번 웨이브의 적 타입이 나와요. 그 타입에 강한 포켓몬을 배틀칸에 넣어요.</li>
+          <li>정비 시간에는 다음 웨이브 타입과 다음 관장을 미리 알려 줘요. 이때 배틀칸을 바꿔 두면 좋아요.</li>
+          <li>초반에는 소환으로 머릿수를 채우고, 코인이 모이면 소환 강화를 올려요.</li>
+          <li>PC칸은 25칸이에요. 가득 차기 전에 안 쓰는 포켓몬은 교환 재료로 쓰거나 팔아요.</li>
+          <li>고스트와 드래곤 타입 웨이브는 51웨이브부터 나와요.</li>
+          <li>배속은 3배속까지 돼요. 관장전처럼 바쁠 때는 1배속으로 내려도 돼요.</li>
+        </ul>
+      </section>
+
+      <section id="phone">
+        <h2>폰에서 하기</h2>
+        <p>폰 브라우저로 열면 폰용 화면으로 바뀌어요. 세로와 가로 모두 돼요. 포켓몬을 누르면 정보와 진화, 교환, 판매 버튼이 나와요.</p>
+        <h3>앱처럼 설치하기</h3>
+        <ul>
+          <li><strong>아이폰</strong>: 공유 버튼을 누르고 홈 화면에 추가를 눌러요.</li>
+          <li><strong>안드로이드</strong>: 앱으로 설치 버튼을 누르거나, 브라우저 메뉴에서 홈 화면에 추가를 눌러요.</li>
+        </ul>
+        <p>설치하면 주소창이 없어져서 게임 화면이 더 커지고, 홈 화면 아이콘으로 바로 열려요. 앱 스토어 없이 설치되고 항상 최신 버전으로 열려요.</p>
+      </section>
+
+      <section id="faq">
+        <h2>자주 묻는 질문</h2>
+        <dl>
+          <dt>돈이 드나요?</dt>
+          <dd>아니요. 무료이고 광고나 결제가 없어요.</dd>
+          <dt>설치하거나 가입해야 하나요?</dt>
+          <dd>아니요. 주소를 열면 브라우저에서 바로 시작해요.</dd>
+          <dt>진행 상황이 저장되나요?</dt>
+          <dd>한 판 단위로 하는 게임이라 판 중간은 저장되지 않아요. 최고 기록과 설정은 그 브라우저에 저장돼요.</dd>
+          <dt>한 판은 얼마나 걸리나요?</dt>
+          <dd>130웨이브 끝까지 가면 1배속으로 40분이 넘게 걸려요. 2배속과 3배속으로 줄일 수 있어요.</dd>
+          <dt>아이폰에서 소리가 안 나요.</dt>
+          <dd>아이폰은 무음 모드일 때 웹 게임 소리를 꺼요. 무음 모드를 끄면 소리가 나요.</dd>
+          <dt>처음 열 때 오래 걸려요.</dt>
+          <dd>처음에는 게임 파일 30MB쯤을 받아요. 한 번 받은 뒤에는 더 빨리 열려요.</dd>
+          <dt>공식 포켓몬 게임인가요?</dt>
+          <dd>아니요. 팬이 만든 비공식 게임이에요. 닌텐도, 게임프리크, 포켓몬컴퍼니와 관계없어요.</dd>
+        </dl>
+      </section>
+
+      <div class="cta">
+        <p>읽는 것보다 한 판 해 보는 게 빨라요.</p>
+        <a class="play" href="../">게임 시작하기</a>
+      </div>
+
+      <footer>
+        <p>만든이: 방구석평론가 · 엔진: GameMaker · 포켓몬 그림: Pokémon Essentials 그래픽 묶음 · 배경 그림: Google Gemini · 음악과 효과음: 8비트 원곡</p>
+        <p>비공식 팬게임이에요. 닌텐도, 게임프리크, 포켓몬컴퍼니와 관계없고 돈을 받지 않아요.</p>
+      </footer>
+    </div>
+  </body>
+</html>

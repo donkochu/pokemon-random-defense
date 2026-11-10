@@ -5,6 +5,8 @@
 
 **바로 하기: https://donkochu.github.io/pokemon-random-defense/**
 
+게임 소개와 하는 법: https://donkochu.github.io/pokemon-random-defense/guide/
+
 ## 하는 법
 
 - 첫 파트너를 고르고 코인으로 포켓몬을 소환해요. 알이 빛나는 색이 등급이에요.
