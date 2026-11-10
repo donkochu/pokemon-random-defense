@@ -452,6 +452,15 @@
 
 
     <style id="prd-phone-style">
+      /* 폰 화면 배치: 게임 화면을 화면 위쪽(노치 아래)에 붙여서 놓아요. 화면 크기는 아래 스크립트가 바로 재요 */
+      html.prd-mob, html.prd-mob body { overflow: hidden; }
+      html.prd-mob canvas.emscripten {
+        position: fixed;
+        top: env(safe-area-inset-top, 0px);
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+      }
       html.prd-phone, html.prd-phone body {
         overscroll-behavior: none;
         -webkit-touch-callout: none;
@@ -1830,9 +1839,61 @@
           return r;
         };
         if (PRD_MOBILE_BUILD) {
-          // 화면 가장자리(노치) 밖으로 나가지 않게 해요
-          var vp = document.querySelector('meta[name="viewport"]');
-          if (vp) vp.setAttribute("content", "width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0");
+          // ----- 화면 크기 바로잡기
+          // 게임과 사이트는 window.innerWidth / innerHeight로 화면 크기를 알아요. 그런데 아이폰에서 홈 화면 앱으로 열어
+          // 가로로 돌리면 innerHeight가 실제 화면보다 크게 나와서, 게임 화면이 아래로 밀리고 위가 비었어요.
+          // 그래서 여러 값 중 가장 작은 것(실제 화면보다 클 수 없게)에서 노치 같은 가장자리를 뺀 크기를 대신 알려 줘요.
+          root.classList.add("prd-mob");
+          var probe = document.createElement("div");
+          probe.style.cssText = "position:fixed;left:0;top:0;width:0;height:0;visibility:hidden;pointer-events:none;" +
+            "padding:env(safe-area-inset-top,0px) env(safe-area-inset-right,0px) env(safe-area-inset-bottom,0px) env(safe-area-inset-left,0px)";
+          document.body.appendChild(probe);
+          var dW = Object.getOwnPropertyDescriptor(window, "innerWidth") || Object.getOwnPropertyDescriptor(Window.prototype, "innerWidth");
+          var dH = Object.getOwnPropertyDescriptor(window, "innerHeight") || Object.getOwnPropertyDescriptor(Window.prototype, "innerHeight");
+          var rawW = function () { return (dW && dW.get) ? dW.get.call(window) : root.clientWidth; };
+          var rawH = function () { return (dH && dH.get) ? dH.get.call(window) : root.clientHeight; };
+          var area = { w: 0, h: 0 };
+          var measure = function () {
+            var w = rawW(), h = rawH();
+            var vv = window.visualViewport;
+            if (vv && vv.width > 0 && vv.height > 0 && Math.abs((vv.scale || 1) - 1) < 0.01) {
+              w = Math.min(w, vv.width);
+              h = Math.min(h, vv.height);
+            }
+            var sw = screen.width, sh = screen.height;
+            if (sw > 0 && sh > 0) {
+              // 화면보다 클 수는 없어요 (아이폰은 screen 값이 늘 세로 기준이라 긴 쪽, 짧은 쪽으로 봐요)
+              var land = (typeof window.orientation === "number") ? Math.abs(window.orientation) === 90
+                : ((screen.orientation && screen.orientation.type) ? /landscape/.test(screen.orientation.type) : w > h);
+              w = Math.min(w, land ? Math.max(sw, sh) : Math.min(sw, sh));
+              h = Math.min(h, land ? Math.min(sw, sh) : Math.max(sw, sh));
+            }
+            var cs = getComputedStyle(probe);
+            var it = parseFloat(cs.paddingTop) || 0, ir = parseFloat(cs.paddingRight) || 0;
+            var ib = parseFloat(cs.paddingBottom) || 0, il = parseFloat(cs.paddingLeft) || 0;
+            var nw = Math.max(100, Math.floor(w - Math.max(il, ir) * 2));
+            var nh = Math.max(100, Math.floor(h - it - ib));
+            var changed = (nw !== area.w || nh !== area.h);
+            area.w = nw;
+            area.h = nh;
+            return changed;
+          };
+          measure();
+          try {
+            Object.defineProperty(window, "innerWidth", { configurable: true, get: function () { return area.w; } });
+            Object.defineProperty(window, "innerHeight", { configurable: true, get: function () { return area.h; } });
+          } catch (e) {}
+          var remeasure = function () {
+            if (window.scrollX || window.scrollY) window.scrollTo(0, 0); // 돌린 뒤에 화면이 밀려 있으면 제자리로
+            if (measure()) {
+              if (typeof ensureAspectRatio === "function") requestAnimationFrame(ensureAspectRatio);
+              update();
+            }
+          };
+          window.addEventListener("resize", remeasure);
+          window.addEventListener("orientationchange", function () { remeasure(); setTimeout(remeasure, 300); setTimeout(remeasure, 900); });
+          if (window.visualViewport) window.visualViewport.addEventListener("resize", remeasure);
+          setInterval(remeasure, 700);
           // 게임에게 "폰이에요" 신호: F6+F7+F8+F9를 같이 누른 것처럼 보내요. 알아들을 때까지 되풀이해요
           var CH = [["F6", 117], ["F7", 118], ["F8", 119], ["F9", 120]];
           var keys = function (type) {
