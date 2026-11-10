@@ -25,6 +25,11 @@
     <meta name="twitter:card" content="summary_large_image" />
     <link rel="icon" type="image/png" href="favicon.png" />
     <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+    <link rel="manifest" href="manifest.webmanifest" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="apple-mobile-web-app-title" content="포랜디" />
 
     <!-- Custom PreStyle code is injected here -->
     
@@ -445,6 +450,95 @@
       }
     </style>
 
+
+    <style id="prd-phone-style">
+      html.prd-phone, html.prd-phone body {
+        overscroll-behavior: none;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        user-select: none;
+        -webkit-tap-highlight-color: transparent;
+      }
+      #prdRotate {
+        position: fixed;
+        inset: 0;
+        z-index: 1000;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 14px;
+        padding: 24px;
+        box-sizing: border-box;
+        text-align: center;
+        color: #f4f1ea;
+        font-family: -apple-system, "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", sans-serif;
+        background: radial-gradient(56.63% 56.63% at 50% 43.37%, #1c1726 0%, #060612 100%);
+      }
+      #prdRotate[hidden], #prdFs[hidden], #prdRotFs[hidden] { display: none; }
+      #prdRotate .prd-ico {
+        width: 54px;
+        height: 92px;
+        border: 4px solid #f4f1ea;
+        border-radius: 12px;
+        box-sizing: border-box;
+        position: relative;
+        margin-bottom: 18px;
+        animation: prdTurn 2.4s ease-in-out infinite;
+      }
+      #prdRotate .prd-ico::after {
+        content: "";
+        position: absolute;
+        left: 50%;
+        bottom: 6px;
+        width: 16px;
+        height: 4px;
+        margin-left: -8px;
+        border-radius: 2px;
+        background: #f4f1ea;
+      }
+      @keyframes prdTurn {
+        0%, 20% { transform: rotate(0deg); }
+        55%, 85% { transform: rotate(-90deg); }
+        100% { transform: rotate(0deg); }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        #prdRotate .prd-ico { animation: none; transform: rotate(-90deg); }
+      }
+      #prdRotate .prd-t { font-size: 22px; font-weight: 700; margin: 0; }
+      #prdRotate .prd-s { font-size: 14px; line-height: 1.5; margin: 0; color: #b9b3c6; max-width: 280px; word-break: keep-all; }
+      #prdRotFs {
+        margin-top: 10px;
+        font: inherit;
+        font-size: 16px;
+        font-weight: 700;
+        color: #fff;
+        background: #e5533f;
+        border: 0;
+        border-radius: 10px;
+        padding: 14px 22px;
+        min-height: 48px;
+      }
+      #prdRotFs:active { filter: brightness(0.88); }
+      #prdFs {
+        position: fixed;
+        left: 8px;
+        bottom: 8px;
+        z-index: 900;
+        width: 44px;
+        height: 44px;
+        padding: 0;
+        border: 1px solid rgba(244, 241, 234, 0.35);
+        border-radius: 10px;
+        background: rgba(28, 23, 38, 0.85);
+        color: #f4f1ea;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      #prdFs:active { filter: brightness(1.4); }
+    </style>
+
     <!-- Custom PostStyle code is injected here -->
     
 
@@ -477,14 +571,25 @@
     <!-- Custom PostCanvas code is injected here -->
     
 
+
+    <div id="prdRotate" hidden>
+      <div class="prd-ico" aria-hidden="true"></div>
+      <p class="prd-t">폰을 가로로 돌려 주세요</p>
+      <p class="prd-s" id="prdRotSub">화면이 안 돌아가면 폰의 화면 회전 잠금(자동 회전)을 풀어 주세요</p>
+      <button id="prdRotFs" type="button" hidden>가로 전체 화면으로 하기</button>
+    </div>
+    <button id="prdFs" type="button" aria-label="전체 화면" hidden>
+      <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8V3h5M14 3h5v5M19 14v5h-5M8 19H3v-5"/></svg>
+    </button>
+
     <div id="pauseMenuContainer" hidden>
       <div id="pauseMenuBorder">
         <div id="pauseMenu">
           <button id="resumeButton" onclick="resume()">
-            Resume
+            계속하기
           </button>
           <button id="quitButton" onclick="quitIfSupported()">
-            Quit
+            나가기
           </button>
         </div>
         </div>
@@ -885,7 +990,7 @@
 "4fbc86853bc6329134431c7fc944310f",
 "51508bb69a1cadcc9d5dd4968f81f861",
 "4ab416c805671350eacb86cab7084a21",
-"5b0053cd4738a69f7ae1983d5c6f34f7" ];
+"21fc4422ff440b05edd2bf17722a1bad" ];
       }
 
       function onFirstFrameRendered()
@@ -1577,6 +1682,135 @@
         wallpaper_update_config(JSON.stringify(wallpaperConfig));
       }
     </script>
+
+    <script id="prd-phone-script">
+      // 폰에서만 켜져요. PC와 태블릿은 아무것도 건드리지 않아요
+      //  - 게임이 폰 화면 배치를 지원하면 (PRD_MOBILE_BUILD): 게임에게 폰이라고 알려 주고, 게임이 화면을 꽉 채워요 (세로, 가로 모두)
+      //  - 지원하지 않거나 신호가 안 통하면: 세로일 때 가로로 돌리라고 안내해요
+      (function () {
+        var PRD_MOBILE_BUILD = true;
+        var ua = navigator.userAgent || "";
+        var touch = ("ontouchstart" in window) || (navigator.maxTouchPoints > 0);
+        var phone = touch && (/iPhone|iPod/i.test(ua) || (/Android/i.test(ua) && /Mobile/i.test(ua)));
+        if (!phone) return;
+        document.documentElement.classList.add("prd-phone");
+
+        var rot = document.getElementById("prdRotate");
+        var rotFs = document.getElementById("prdRotFs");
+        var rotSub = document.getElementById("prdRotSub");
+        var fsBtn = document.getElementById("prdFs");
+        var cv = document.getElementById("canvas");
+        var root = document.documentElement;
+        var touched = false; // 게임 화면을 한 번이라도 눌렀으면 (게임 중일 수 있으면) 세로가 될 때 멈춰요
+        cv.addEventListener("touchstart", function () { touched = true; }, { passive: true });
+
+        // ----- 게임과 주고받기
+        var gameUpAt = 0;     // 게임이 뜬 시각
+        var mobAck = false;   // 게임이 폰 화면 배치를 켰는지 (캔버스 크기를 화면에 맞추면 켠 거예요)
+        var fallback = !PRD_MOBILE_BUILD; // 가로 안내를 쓸지
+        var baseSize = window.onGameSetWindowSize;
+        window.onGameSetWindowSize = function (w, h) {
+          if (!gameUpAt) gameUpAt = Date.now();
+          var wasAck = mobAck;
+          mobAck = !(w === 1366 && h === 768);
+          if (mobAck) fallback = false;
+          var r = baseSize ? baseSize.apply(this, arguments) : undefined;
+          if (mobAck !== wasAck) {
+            if (mobAck) showFs();
+            setTimeout(update, 0);
+          }
+          return r;
+        };
+        if (PRD_MOBILE_BUILD) {
+          // 화면 가장자리(노치) 밖으로 나가지 않게 해요
+          var vp = document.querySelector('meta[name="viewport"]');
+          if (vp) vp.setAttribute("content", "width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0");
+          // 게임에게 "폰이에요" 신호: F6+F7+F8+F9를 같이 누른 것처럼 보내요. 알아들을 때까지 되풀이해요
+          var CH = [["F6", 117], ["F7", 118], ["F8", 119], ["F9", 120]];
+          var keys = function (type) {
+            CH.forEach(function (c) {
+              var e = new KeyboardEvent(type, { key: c[0], code: c[0], bubbles: true, cancelable: true });
+              try {
+                Object.defineProperty(e, "keyCode", { get: function () { return c[1]; } });
+                Object.defineProperty(e, "which", { get: function () { return c[1]; } });
+              } catch (x) {}
+              window.dispatchEvent(e);
+            });
+          };
+          var tries = 0;
+          var hello = setInterval(function () {
+            if (mobAck) return;
+            if (!gameUpAt) return; // 게임이 뜬 뒤부터
+            tries++;
+            // 6초쯤 해도 안 되면 우선 가로 안내를 보여줘요 (느린 폰일 수도 있어서 1분쯤은 계속 보내 봐요)
+            if (tries === 20 && !fallback) { fallback = true; update(); }
+            if (tries > 200) { clearInterval(hello); return; }
+            keys("keydown");
+            setTimeout(function () { keys("keyup"); }, 200);
+          }, 300);
+        }
+
+        // ----- 전체 화면 (안드로이드): 주소창을 없애요
+        var canFs = !!(root.requestFullscreen && document.fullscreenEnabled);
+        var canLock = !!(screen.orientation && screen.orientation.lock);
+        function isFull() { return !!document.fullscreenElement; }
+        function isApp() {
+          return navigator.standalone === true ||
+            (window.matchMedia && (matchMedia("(display-mode: fullscreen)").matches || matchMedia("(display-mode: standalone)").matches));
+        }
+        function isPortrait() { return window.innerHeight > window.innerWidth; }
+        function goFull() {
+          var lock = fallback || isPortrait() === false; // 가로 안내 중이거나 이미 가로면 가로로 잠가요
+          var p;
+          try { p = root.requestFullscreen({ navigationUI: "hide" }); } catch (e) { return; }
+          if (p && p.then) {
+            p.then(function () {
+              if (canLock && lock) screen.orientation.lock("landscape").catch(function () {});
+            }).catch(function () {});
+          }
+        }
+        if (canFs) {
+          rotFs.addEventListener("click", goFull);
+          fsBtn.addEventListener("click", goFull);
+          if (canLock) rotSub.textContent = "화면이 안 돌아가면 아래 버튼을 눌러요";
+        }
+
+        var wasPortrait = false;
+        var fsUntil = 0, fsTimer = 0, wasLand = false;
+        // 폰 화면 배치에서는 전체 화면 버튼을 몇 초만 보여줘요 (게임 화면을 계속 가리지 않게)
+        function showFs() {
+          fsUntil = Date.now() + 7000;
+          clearTimeout(fsTimer);
+          fsTimer = setTimeout(update, 7100);
+        }
+        function update() {
+          var port = isPortrait();
+          if (fallback) {
+            // 가로 안내
+            rot.hidden = !port;
+            rotFs.hidden = !(port && canFs && canLock);
+            // 가로일 때: 전체 화면 버튼 (게임 화면을 가리지 않게 옆 빈칸이 있을 때만)
+            var r = cv.getBoundingClientRect();
+            fsBtn.hidden = !(canFs && !port && !isFull() && !isApp() && r.width > 0 && r.left >= 56);
+            if (port && !wasPortrait && touched && typeof pause === "function") pause();
+          } else {
+            rot.hidden = true;
+            // 폰 화면 배치: 게임이 화면을 꽉 채워서 빈칸이 없어요. 가로로 돌린 직후 몇 초만 전체 화면 버튼을 보여줘요
+            var land = !port;
+            if (land && !wasLand) showFs();
+            wasLand = land;
+            fsBtn.hidden = !(mobAck && canFs && land && !isFull() && !isApp() && Date.now() < fsUntil);
+          }
+          wasPortrait = port;
+        }
+        window.addEventListener("resize", update);
+        window.addEventListener("orientationchange", function () { setTimeout(update, 250); });
+        document.addEventListener("fullscreenchange", update);
+        new ResizeObserver(function () { requestAnimationFrame(update); }).observe(cv);
+        update();
+      })();
+    </script>
+
     <script async type="text/javascript" src="runner.js"></script>
 
     <!-- Custom BodyEnd code is injected here -->

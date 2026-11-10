@@ -1,0 +1,16 @@
+{
+  "name": "포켓몬 랜덤 디펜스",
+  "short_name": "포랜디",
+  "description": "랜덤 소환으로 포켓몬을 모아 포켓몬 리그 챔피언이 되는 디펜스. 비공식 팬게임이에요.",
+  "lang": "ko",
+  "start_url": "./",
+  "scope": "./",
+  "display": "fullscreen",
+  "orientation": "any",
+  "background_color": "#060612",
+  "theme_color": "#060612",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" }
+  ]
+}
